@@ -2,13 +2,18 @@ package com.elllzman.java.NightmareMode;
 
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.Random;
 
 
 /**
@@ -16,6 +21,9 @@ import org.bukkit.potion.PotionEffectType;
  */
 public class EventListeners extends JavaPlugin implements Listener {
 
+
+    Random random = new Random();
+    int Chance = random.nextInt(200);
 
     @EventHandler
     public void onSpawn(CreatureSpawnEvent event) {
@@ -43,12 +51,39 @@ public class EventListeners extends JavaPlugin implements Listener {
     {
         if(new NightMareMode().getEnabled())
         {
+            Location loc = null;
+
             switch (event.getEntityType()) {
                 case CREEPER:
-                    Location loc = event.getEntity().getLocation();
+                    loc = event.getEntity().getLocation();
                     loc.getWorld().spawnEntity(loc, EntityType.SILVERFISH);
                 case
             }
+
+        }
+    }
+
+    public void onDamage(EntityDamageByEntityEvent event)
+    {
+        if(event.getDamager() instanceof Player) {
+            Location loc = null;
+            switch (event.getEntityType()) {
+                case ENDERMAN:
+                    loc = event.getEntity().getLocation();
+                    if (Chance < 100) {
+                        loc.getWorld().spawnEntity(loc, EntityType.BLAZE);
+                    }
+                    Player p = (Player)event.getDamager();
+                    p.setFireTicks((int)Math.random() * 200);
+            }
+        }
+    }
+
+
+    public void onBurningDamage(EntityDamageEvent event)
+    {
+        if(event.getEntityType() == EntityType.ZOMBIE)
+        {
 
         }
     }
