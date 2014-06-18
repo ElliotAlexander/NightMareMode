@@ -1,6 +1,9 @@
 package com.elllzman.java.NightmareMode;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,6 +16,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -51,13 +56,19 @@ public class EventListeners extends JavaPlugin implements Listener {
     {
         if(new NightMareMode().getEnabled())
         {
-            Location loc = null;
+            Location loc = event.getEntity().getLocation();
 
             switch (event.getEntityType()) {
                 case CREEPER:
-                    loc = event.getEntity().getLocation();
                     loc.getWorld().spawnEntity(loc, EntityType.SILVERFISH);
-                case
+                case ZOMBIE:
+                    loc.getWorld().spawnEntity(loc, EntityType.SKELETON);
+                case SPIDER:
+                    List<Block> toWeb = new ArrayList<Block>();
+                    Block b = loc.getBlock().getRelative(BlockFace.UP);
+                    toWeb.add(b);
+
+
             }
 
         }
@@ -82,9 +93,9 @@ public class EventListeners extends JavaPlugin implements Listener {
 
     public void onBurningDamage(EntityDamageEvent event)
     {
-        if(event.getEntityType() == EntityType.ZOMBIE)
+        if(event.getEntityType() == EntityType.ZOMBIE && event.getCause() == EntityDamageEvent.DamageCause.FIRE && ((Math.random() * 10) < 5))
         {
-
+            event.setCancelled(true);
         }
     }
 
