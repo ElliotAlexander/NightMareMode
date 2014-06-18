@@ -16,7 +16,7 @@ public class NightMareMode extends JavaPlugin implements Listener {
     public void onEnable()
     {
 
-        isEnabled = false;
+        isEnabled = true;
 
         getServer().getPluginManager().registerEvents( this, new EventListeners());
         Logger out = getLogger();
