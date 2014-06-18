@@ -1,4 +1,4 @@
-package com.elllzman.java.NightmareMode;
+package com.elllzman.NightmareMode;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
