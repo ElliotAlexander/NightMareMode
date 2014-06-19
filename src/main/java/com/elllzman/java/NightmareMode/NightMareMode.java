@@ -1,30 +1,34 @@
 package com.elllzman.java.NightmareMode;
 
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
 
-/**
- * Created by Elliot on 17/06/2014.
- */
-public class NightMareMode extends JavaPlugin implements Listener {
 
-    public static boolean isEnabled;
+public class NightMareMode extends JavaPlugin  {
 
+    protected static boolean isModeEnabled;
 
+    @Override
     public void onEnable()
     {
 
-        isEnabled = true;
+        isModeEnabled = false;
 
-        getServer().getPluginManager().registerEvents( this, new EventListeners());
+        new EventListeners(this);
+        new CommandHandler(this);
+        getServer().getPluginManager().registerEvents(new EventListeners(this), this);
         Logger out = getLogger();
         out.info("Nightmare mode has been invoked!");
     }
 
-    public static boolean getEnabled()
+    public static boolean isModeEnabled()
     {
-        return isEnabled;
+        return isModeEnabled;
+    }
+
+    public static void  setIsModeEnabled(Boolean x)
+    {
+        isModeEnabled = x;
     }
 }
