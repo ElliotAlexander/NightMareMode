@@ -126,6 +126,11 @@ public class EventListeners implements Listener {
                         break;
                 }
             }
+            else if(!(event.getDamager() instanceof Player));
+                if(event.getCause() == EntityDamageEvent.DamageCause.PROJECTILE)
+                {
+
+                }
         }
     }
 

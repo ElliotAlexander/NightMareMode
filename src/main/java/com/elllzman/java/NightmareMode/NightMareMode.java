@@ -1,5 +1,7 @@
 package com.elllzman.java.NightmareMode;
 
+import org.bukkit.command.CommandSender;
+import org.bukkit.material.Command;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -20,6 +22,8 @@ public class NightMareMode extends JavaPlugin  {
         getServer().getPluginManager().registerEvents(new EventListeners(this), this);
         Logger out = getLogger();
         out.info("Nightmare mode has been invoked!");
+
+        getCommand("nm").setExecutor(new CommandHandler(this));
     }
 
     public static boolean isModeEnabled()
@@ -31,4 +35,5 @@ public class NightMareMode extends JavaPlugin  {
     {
         isModeEnabled = x;
     }
+
 }
