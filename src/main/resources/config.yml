@@ -1,0 +1,10 @@
+
+# All values are in ticks. One second = 20 ticks. Some aspects may vary with server lag.
+
+
+# The maximum amount of time a player can be set on fire for by an enderman.
+Maximum Fire time: 200
+
+# The maximum and minimum amount of time a skeleton arrow can poison a player for. Uses poison 2 effect.
+Minimum poison time: 20
+Maximum poison time: 100

@@ -1,11 +1,9 @@
 package com.elllzman.java.NightmareMode;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.omg.CORBA.DynAnyPackage.Invalid;
 
 
 public class CommandHandler implements CommandExecutor {
@@ -34,6 +32,12 @@ public class CommandHandler implements CommandExecutor {
                 if (subcommand.equalsIgnoreCase("disable") || subcommand.equalsIgnoreCase("off")) {
                     NightMareMode.setIsModeEnabled(false);
                     plugin.getServer().broadcastMessage(ChatColor.GRAY + "Nightmare mode has been disabled!");
+                    return true;
+                }
+                if(subcommand.equalsIgnoreCase("reload")) {
+                    plugin.reloadConfig();
+                    NightMareMode.initialiseConfig();
+                    sender.sendMessage(ChatColor.RED + "Config has been reloaded.");
                     return true;
                 }
                 else;

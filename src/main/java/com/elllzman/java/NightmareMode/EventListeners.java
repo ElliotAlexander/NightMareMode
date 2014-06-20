@@ -4,16 +4,13 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
 
 
 /**
@@ -51,7 +48,6 @@ public class EventListeners implements Listener {
             if(event.getEntityType()==EntityType.ENDERMAN){
                 event.getEntity().addPotionEffect((new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 10000000, 1)));
             }
-
         }
     }
 
@@ -110,29 +106,33 @@ public class EventListeners implements Listener {
     }
 
     @EventHandler
-    public void onDamage(EntityDamageByEntityEvent event)
-    {
-        if(NightMareMode.isModeEnabled()==true) {
-            if (event.getDamager() instanceof Player) {
-                Location loc = null;
-                switch (event.getEntityType()) {
-                    case ENDERMAN:
-                        loc = event.getEntity().getLocation();
-                        if ((Math.random() * 10) < 3) {
-                            loc.getWorld().spawnEntity(loc, EntityType.BLAZE);
-                        }
-                        Player p = (Player) event.getDamager();
-                        p.setFireTicks((int) Math.random() * 200);
-                        break;
+    public void onDamage(EntityDamageByEntityEvent event) {
+        if (NightMareMode.isModeEnabled() == true) {
+            if (event.getEntity() instanceof Player && event.getDamager().getType() == EntityType.ENDERMAN )
+            {
+                Location loc = event.getEntity().getLocation();
+                Player p = (Player) event.getEntity();
+                if(randomInRange(0, 9) < 5) {
+                    p.setFireTicks(randomInRange(40, 300));
                 }
             }
-            else if(!(event.getDamager() instanceof Player));
-                if(event.getCause() == EntityDamageEvent.DamageCause.PROJECTILE)
-                {
 
+
+
+            if (event.getDamager() instanceof Arrow) {
+                if (event.getEntity() instanceof Player) {
+
+                    Arrow a = (Arrow) event.getDamager();
+                    if (a.getShooter() instanceof Skeleton) {
+                        LivingEntity e = (LivingEntity) event.getEntity();
+                        int x = randomInRange(NightMareMode.minPoisonTime, NightMareMode.maxPoisonTime);
+                        e.addPotionEffect((new PotionEffect(PotionEffectType.POISON, x, 1)));
+                    }
                 }
+            }
         }
     }
+
 
     @EventHandler
     public void onBurningDamage(EntityDamageEvent event)
@@ -143,5 +143,6 @@ public class EventListeners implements Listener {
             event.setCancelled(true);
         }
     }
+
 
 }
