@@ -1,7 +1,5 @@
 package com.elllzman.java.NightmareMode;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.material.Command;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -15,7 +13,6 @@ public class NightMareMode extends JavaPlugin  {
     public static int maxPoisonTime;
     public static int minPoisonTime;
 
-    public static int minFireTime;
     public static int maxFireTime;
 
 
