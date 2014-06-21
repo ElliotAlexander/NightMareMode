@@ -8,3 +8,7 @@ Maximum Fire time: 200
 # The maximum and minimum amount of time a skeleton arrow can poison a player for. Uses poison 2 effect.
 Minimum poison time: 20
 Maximum poison time: 100
+
+
+# True/False option as to whether skeletons spawned on death of a zombie spawn with nothing (melee) or have bows,
+Spawn skeletons with bows: true
